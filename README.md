@@ -1,3 +1,5 @@
+<link rel="icon" type="image/png" href="Nextflow Fusion Calling Workflow Diagram.png">
+
 # CAB fusion reports — Nextflow
 
 This DSL2 pipeline generates your CAB HTML and PDF fusion reports from existing
