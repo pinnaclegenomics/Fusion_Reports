@@ -1,7 +1,7 @@
 <a id="top"></a>
 
 ![Project Fusio Report](Nextflow_Fusion_Calling_Workflow_Diagram.png)
-# Nextflow Workflow: Fusion Calling and CAB Report Generation
+# Nextflow Workflow: Fusion Calling and Report Generation
 
 **Documentation:** Introduction, workflow architecture, environment setup, input organization, execution, and quality control.
 
