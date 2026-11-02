@@ -1,0 +1,66 @@
+{
+  "title": "Fusion analysis overview",
+  "source": "Adapted from Gene_Fusion_Aug2026.docx",
+  "introduction": "Gene fusions join sequences from previously independent genes, often through chromosomal inversions, deletions, or translocations. RNA sequencing can detect the resulting chimeric transcripts. Fusion analysis identifies candidate events and prioritizes them for review; a computational call alone does not establish biological or clinical significance.",
+  "scope_note": "",
+  "workflow": {
+    "title": "Pipeline overview and core stages",
+    "introduction": "A typical workflow moves from sequence quality assessment to alignment, candidate discovery, filtering, and interpretation. Misalignments, homologous sequences, sequencing errors, and transcripts spanning adjacent genes can complicate interpretation. Specific stages and filtering rules depend on the caller and its configuration.",
+    "columns": ["Stage", "Process", "Purpose"],
+    "rows": [
+      ["Pre-processing", "Quality assessment and trimming", "Assess read quality, for example with FastQC, and trim adapters or low-quality sequence when required using a trimming tool such as Trimmomatic."],
+      ["Alignment", "Read mapping", "Map reads to a reference genome or transcriptome with an aligner suitable for the caller, such as STAR or Bowtie2."],
+      ["Candidate discovery", "Chimeric detection", "Identify split reads spanning a fusion junction and discordant read pairs supporting a connection between the partner genes."],
+      ["Assembly", "Breakpoint sequence reconstruction", "Some workflows use local de novo assembly to reconstruct candidate fusion sequences. This is not a universal step in all three callers."],
+      ["Filtering", "Artifact assessment", "Evaluate homologous sequences, pseudogenes, ribosomal RNA, recurrent background events, and adjacent-gene read-through candidates according to the caller's rules."],
+      ["Annotation", "Functional interpretation", "Assess reading frame, transcript context, and retained protein domains, including kinase domains when relevant."]
+    ]
+  },
+  "metrics": {
+    "title": "Key detection evidence",
+    "items": [
+      {"label": "Split reads", "text": "Individual reads span a candidate fusion junction: one portion aligns to one partner gene and the other portion to the second partner."},
+      {"label": "Discordant pairs or bridge reads", "text": "In paired-end sequencing, the two mates support different partner genes or an unexpected alignment configuration. These pairs support a candidate event but do not by themselves pinpoint the junction sequence."},
+      {"label": "Review of the evidence", "text": "Read support is evidence for prioritization, not proof of a true fusion. Review breakpoint alignments, mapping quality, sequence homology, reading frame, and caller-specific artifact annotations. Support metrics are defined differently by the three tools and should not be treated as directly interchangeable."}
+    ]
+  },
+  "comparison": {
+    "title": "Comparison of the three callers",
+    "introduction": "The supplied overview contrasts sensitivity, specificity, runtime, and filtering strategy. These are qualitative descriptions: performance depends on data quality, reference resources, software version, parameters, and computing environment. This report does not benchmark the tools or establish clinical suitability.",
+    "columns": ["Feature", "STAR-Fusion", "Arriba", "FusionCatcher"],
+    "rows": [
+      ["Approach", "Uses STAR chimeric alignment evidence to identify candidate fusion transcripts.", "Uses STAR alignments and caller-specific filtering to identify fusion events.", "Uses a multi-step alignment and filtering workflow with extensive reference resources."],
+      ["Alignment context", "Can use existing compatible STAR chimeric output, including a kickstart workflow.", "Requires STAR output generated with parameters suitable for Arriba.", "Uses multiple alignment strategies; the supplied overview lists Bowtie2 and BLAT among the tools."],
+      ["Emphasis", "Efficient candidate discovery and integration with STAR-based analysis.", "Sensitive discovery, including complex events such as viral integrations and internal tandem duplications where supported.", "Filtering of recurrent background candidates, homologous sequences, and other artifacts."],
+      ["Typical review focus", "Review complex or low-support events that may be missed or represented differently by callers.", "Interpret confidence categories together with read evidence and filter annotations.", "Examine filtering annotations and supporting evidence for retained candidates."],
+      ["Runtime and resources", "Reuse of STAR output can reduce repeated alignment work; resource requirements remain dataset-dependent.", "A STAR-based workflow; total runtime and memory include alignment requirements.", "Multi-step processing and large reference resources can increase runtime and storage requirements."],
+      ["Use context in the supplied overview", "Large-scale screening and research workflows.", "Complex rearrangement review and research or clinical-development workflows requiring independent validation.", "Artifact-focused review and investigation of candidate novel fusions."]
+    ]
+  },
+  "profiles": {
+    "title": "Tool profiles and interpretation",
+    "items": [
+      {
+        "name": "STAR-Fusion",
+        "description": "STAR-Fusion uses chimeric alignment signals produced by STAR and fits into STAR/Trinity-related analysis workflows. The supplied overview highlights efficient processing and precision, while noting that complex rearrangements can be challenging.",
+        "strength": "Reuse of compatible STAR alignment evidence and integration into larger RNA-seq workflows.",
+        "limitation": "Sensitivity to difficult rearrangements, including some immunoglobulin-related events, depends on the data and configuration; compare caller outputs and inspect alignments.",
+        "report_ranking": "Candidates in this report are ranked by junction-read count plus spanning-fragment count, then by junction reads and spanning fragments. Duplicate FusionName values are reduced to one row."
+      },
+      {
+        "name": "Arriba",
+        "description": "Arriba was developed at the German Cancer Research Center (DKFZ). The supplied overview emphasizes sensitive detection in challenging samples and support for events such as viral integrations and internal tandem duplications.",
+        "strength": "Detailed confidence and filter annotations help organize review of fusion candidates and complex events.",
+        "limitation": "A high-confidence label is a caller classification, not a substitute for alignment review or independent validation. Biological background and mapping artifacts still require assessment.",
+        "report_ranking": "Candidates in this report are ranked by confidence (high, medium, low), then summed split reads and discordant mates. Duplicate gene-pair names are reduced to one row."
+      },
+      {
+        "name": "FusionCatcher",
+        "description": "FusionCatcher uses extensive reference information to annotate or filter candidates associated with artifacts, pseudogenes, homologous sequences, and fusions observed in normal samples. The supplied overview emphasizes its multi-step filtering approach.",
+        "strength": "Rich filtering and annotation resources support investigation of potential background or artifactual calls.",
+        "limitation": "Reference resources and multiple processing steps can require substantial disk space and runtime. Filtering does not guarantee that every retained candidate is a true fusion.",
+        "report_ranking": "Rows are grouped by fusion pair. The maximum spanning-pair count and maximum unique-spanning-read count are retained for ranking, and descriptive annotations are combined. IGV coordinates come from the row with the highest spanning-pair count, then unique-read count."
+      }
+    ]
+  }
+}

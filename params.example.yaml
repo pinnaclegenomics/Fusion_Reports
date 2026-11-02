@@ -1,0 +1,14 @@
+# Replace with paths on your machine; absolute paths are recommended.
+inputs: /research/groups/cab/projects/automapper/common/ykumar/Transcriptomic_Group/Projects/Fusion_Project_Scripts_Testing/inputs
+outdir: /research/groups/cab/projects/automapper/common/ykumar/Transcriptomic_Group/Projects/Fusion_Project_Scripts_Testing/Fusion_Results_Oct2026
+report_config: /research/groups/cab/projects/automapper/common/ykumar/Transcriptomic_Group/Projects/Fusion_Project_Scripts_Testing/inputs/Lee.config.yaml
+logo: /research/groups/cab/projects/automapper/common/ykumar/Transcriptomic_Group/Projects/Fusion_Project_Scripts_Testing/inputs/CABlogo.png
+python: '/home/ykumar/miniconda3/envs/cab-fusion-reports/bin/python3'
+# Fusion_reference.bib is detected automatically inside inputs.
+top_n: 10
+igv_top_n: 5
+igv_genome: hg38
+igv_flank: 250
+# for actual alignment screenshots; IGV must be installed separately.
+bam_dir: /research/groups/cab/projects/automapper/common/ykumar/Transcriptomic_Group/Projects/Fusion_Project_Scripts_Testing/bam
+igv_command: '/hpcf/authorized_apps/rhel8_apps/easybuild/software/Xvfb/21.1.9-GCCcore-13.2.0/bin/xvfb-run /hpcf/authorized_apps/rhel8_apps/easybuild/software/Xvfb/21.1.9-GCCcore-13.2.0/bin/xvfb-run -a /home/ykumar/miniconda3/envs/cab-fusion-reports/bin/igv'

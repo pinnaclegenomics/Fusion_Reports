@@ -1,0 +1,14 @@
+name: cab-fusion-reports
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.12
+  - pandas=2.2
+  - matplotlib=3.10
+  - weasyprint=65
+  - pyyaml=6
+  - pypdf=5
+  - pango
+  - fontconfig
+  - fonts-conda-ecosystem
