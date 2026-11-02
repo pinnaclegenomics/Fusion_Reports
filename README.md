@@ -1,4 +1,4 @@
-<link rel="icon" type="image/png" href="[Nextflow_Fusion_Calling_Workflow_Diagram.png](https://github.com/pinnaclegenomics/Fusion_Reports/blob/8e66e8cb41bb9a7c7da82fce76b92bd0f6dc17c4/Nextflow%20Fusion%20Calling%20Workflow%20Diagram.png)">
+<link rel="icon" type="image/png" href="https://github.com/pinnaclegenomics/Fusion_Reports/blob/8e66e8cb41bb9a7c7da82fce76b92bd0f6dc17c4/Nextflow%20Fusion%20Calling%20Workflow%20Diagram.png">
 
 # CAB fusion reports — Nextflow
 
