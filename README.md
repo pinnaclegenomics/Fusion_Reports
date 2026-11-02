@@ -1,4 +1,4 @@
-<link rel="icon" type="image/png" href="Nextflow Fusion Calling Workflow Diagram.png">
+<link rel="icon" type="image/png" href="Nextflow_Fusion_Calling_Workflow_Diagram.png">
 
 # CAB fusion reports — Nextflow
 
